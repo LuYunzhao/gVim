@@ -53,7 +53,9 @@ function! LoadCscope()
 				let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)
 				if (!empty(path))
 					let s:CurrentDir = getcwd()
-					let direct = strpart(s:CurrentDir, 0, match(s:CurrentDir, path) - 1)
+					"Bugfix: the strpart function can't match the string which contains character '/' 
+					"let direct = strpart(s:CurrentDir, 0, match(s:CurrentDir, path) - 1)
+					let direct = strpart(s:CurrentDir, 0, 2)
 					let s:FullPath = direct . path
 					let s:AFullPath = globpath(s:FullPath, "cscope.out")
 "					let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath
